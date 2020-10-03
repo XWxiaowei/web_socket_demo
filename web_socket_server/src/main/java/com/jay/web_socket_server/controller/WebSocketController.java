@@ -49,11 +49,7 @@ public class WebSocketController {
     @OnMessage
     public void OnMessage(String message) {
         log.info("[WebSocket]收到消息={}", message);
-        if (message.indexOf("TOUSER") == 0) {
-            appointSending(name, "客户端的消息我已经收到了");
-        } else {
-            groupSending("客户端的消息我已经收到了");
-        }
+        groupSending("客户端的消息我已经收到了");
     }
 
     public void groupSending(String message) {
@@ -63,20 +59,6 @@ public class WebSocketController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-    }
-
-    /**
-     * 指定发送
-     *
-     * @param name
-     * @param message
-     */
-    public void appointSending(String name, String message) {
-        try {
-            websocketSet.get(name).session.getBasicRemote().sendText(message);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }
